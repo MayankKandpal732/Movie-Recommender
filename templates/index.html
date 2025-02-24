@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1c1c1c;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 700px;
+            background: #2c2c2c;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-box {
+            display: flex;
+            gap: 10px;
+        }
+        input {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ff9800;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e68900;
+        }
+        .movie-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .movie-card {
+            text-align: center;
+            width: 180px;
+            background: #3c3c3c;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+        .movie-card img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .movie-card h5 {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Movie Recommendation System</h1>
+    <form action="/recommend" method="post" class="search-box">
+        <input type="text" id="movie" name="movie" list="movie-list" placeholder="Search for a movie..." autocomplete="off">
+        <datalist id="movie-list">
+            {% for title in movie_titles %}
+                <option value="{{ title }}"></option>
+            {% endfor %}
+        </datalist>
+        <button type="submit">Recommend</button>
+    </form>
+
+    {% if recommendations %}
+        <h2 class="text-center mt-4">Recommendations for "{{ movie }}":</h2>
+        <div class="movie-container">
+            {% for rec, poster in recommendations %}
+                <div class="movie-card">
+                    <img src="{{ poster }}" alt="Movie Poster">
+                    <h5>{{ rec }}</h5>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
