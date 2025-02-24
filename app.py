@@ -1,3 +1,15 @@
+import gdown
+import os
+
+# Google Drive File ID
+FILE_ID = "1ARJj4reEc83h5jrtbSyYN6ySxa_emyNK"
+OUTPUT_PATH = "similarity.pkl"
+
+if not os.path.exists(OUTPUT_PATH):
+    print("Downloading similarity.pkl from Google Drive...")
+    gdown.download(f"https://drive.google.com/uc?id={FILE_ID}", OUTPUT_PATH, quiet=False)
+    print("Download complete!")
+
 from flask import Flask, request, render_template
 import pickle
 import requests
